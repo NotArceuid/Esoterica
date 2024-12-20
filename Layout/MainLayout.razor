@@ -1,0 +1,15 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    <main>
+        <div class="topbar">
+            <TopBar />
+        </div>
+        <article class="flex flex-row content space-x-4 space-y-4 p-4">
+            <SideBar />
+                @Body
+        </article>
+    </main>
+</div>
+
+<h6 class="text-xs absolute right-0">Esoterica dev v0.0.1</h6>

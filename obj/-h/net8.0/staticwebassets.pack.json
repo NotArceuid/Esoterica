@@ -1,0 +1,61 @@
+{
+  "Files": [
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/bin/-h/net8.0/wwwroot/_framework/blazor.webassembly.js",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js"
+    },
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/obj/-h/net8.0/compressed/6z71m7uw5q.gz",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/obj/-h/net8.0/scopedcss/bundle/Esoterica.styles.css",
+      "PackagePath": "staticwebassets/Esoterica.styles.css"
+    },
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/wwwroot/css/app.css",
+      "PackagePath": "staticwebassets/css/app.css"
+    },
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/wwwroot/css/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/wwwroot/css/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/wwwroot/icon-192.png",
+      "PackagePath": "staticwebassets/icon-192.png"
+    },
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/home/Hashed/Documents/Projects/Esoterica/wwwroot/sample-data/weather.json",
+      "PackagePath": "staticwebassets/sample-data/weather.json"
+    },
+    {
+      "Id": "obj/-h/net8.0/staticwebassets/msbuild.Esoterica.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/-h/net8.0/staticwebassets/msbuild.build.Esoterica.props",
+      "PackagePath": "build\\Esoterica.props"
+    },
+    {
+      "Id": "obj/-h/net8.0/staticwebassets/msbuild.buildMultiTargeting.Esoterica.props",
+      "PackagePath": "buildMultiTargeting\\Esoterica.props"
+    },
+    {
+      "Id": "obj/-h/net8.0/staticwebassets/msbuild.buildTransitive.Esoterica.props",
+      "PackagePath": "buildTransitive\\Esoterica.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
