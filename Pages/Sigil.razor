@@ -2,10 +2,92 @@
 
 <PageTitle>Sigil</PageTitle>
 
-<div class="flex flex-col min-w-full min-h-full">
-	<h1 class="text-center">Sigil</h1>
-	<div class="">
-		<h6>Lesser Sigil</h6>
-		<button class="">Buy Sigil</button>
+<div class="p-1 m-6 w-full">
+	<h1 class="text-center text-lg ml-5 border-t-2 mb-1">Sigils</h1>
+	<div class="upgrades">
+		<div class="upgrade-box">
+			<h6>Lesser Sigil [2]</h6>
+			<div class="">
+				<div> Cast </div>
+				<div>Cost [10]</div>
+			</div>
+		</div>
+	</div>
+	<div class="upgrades">
+		<div class="upgrade-box">
+			<h6>Sigil [2]</h6>
+			<div class="">
+				<div> Cast </div>
+				<div>Cost [10]</div>
+			</div>
+		</div>
+	</div>
+	<div class="upgrades">
+		<div class="upgrade-box">
+			<h6>Greater Sigil [2]</h6>
+			<div class="">
+				<div> Cast </div>
+				<div>Cost [10]</div>
+			</div>
+		</div>
+	</div>
+	<div class="upgrades">
+		<div class="upgrade-box">
+			<h6>Major Sigil [2]</h6>
+			<div class="">
+				<div> Cast </div>
+				<div>Cost [10]</div>
+			</div>
+		</div>
+	</div>
+	<div class="upgrades">
+		<div class="upgrade-box">
+			<h6>Prime Sigil [2]</h6>
+			<div class="">
+				<div> Cast </div>
+				<div>Cost [10]</div>
+			</div>
+		</div>
 	</div>
 </div>
+
+
+<style lang="css" scoped>
+	.upgrades {
+		display: flex;
+		flex-direction: column;
+		left: 0;
+	}
+
+	.upgrades div {
+		display: flex;
+		flex-direction: row;
+		padding: 1em;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.upgrade-box h6 {
+		padding-left: 5px;
+		font-size: small;
+	}
+
+	.upgrade-box div {
+		display: flex;
+		flex-direction: column;
+		margin-left: auto;
+		justify-content: center;
+		border: solid 1px;
+		border-radius: .75rem;
+		padding: .25rem .25rem .25rem .25rem;
+		min-width: 14rem;
+		color: white;
+	}
+
+	.upgrade-box div div {
+		margin: 0%;
+		border: none;
+		padding: 0%;
+		font-size: small;
+	}
+</style>
