@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Esoterica")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7388fbc2334d523c7be6f71fe1898d349a6514c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdc9d2b327e472065e52859aa7a5e993ce8a86cf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Esoterica")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Esoterica")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
