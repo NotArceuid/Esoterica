@@ -1,56 +1,25 @@
 @page "/sigils"
+@using Esoterica.Globals
 
 <PageTitle>Sigil</PageTitle>
 
 <div class="p-1 m-6 w-full">
 	<h1 class="text-center text-lg ml-5 border-t-2 mb-1">Sigils</h1>
-	<div class="upgrades">
-		<div class="upgrade-box">
-			<h6>Lesser Sigil [2]</h6>
-			<div class="">
-				<div> Cast </div>
-				<div>Cost [10]</div>
-			</div>
-		</div>
-	</div>
-	<div class="upgrades">
-		<div class="upgrade-box">
-			<h6>Sigil [2]</h6>
-			<div class="">
-				<div> Cast </div>
-				<div>Cost [10]</div>
-			</div>
-		</div>
-	</div>
-	<div class="upgrades">
-		<div class="upgrade-box">
-			<h6>Greater Sigil [2]</h6>
-			<div class="">
-				<div> Cast </div>
-				<div>Cost [10]</div>
-			</div>
-		</div>
-	</div>
-	<div class="upgrades">
-		<div class="upgrade-box">
-			<h6>Major Sigil [2]</h6>
-			<div class="">
-				<div> Cast </div>
-				<div>Cost [10]</div>
-			</div>
-		</div>
-	</div>
-	<div class="upgrades">
-		<div class="upgrade-box">
-			<h6>Prime Sigil [2]</h6>
-			<div class="">
-				<div> Cast </div>
-				<div>Cost [10]</div>
-			</div>
-		</div>
-	</div>
-</div>
 
+	@for (int i = 0; i < Player.Sigils.SigilList.Count; i++)
+	{
+		<div class="upgrades">
+			<div class="upgrade-box">
+				<h6>@Player.Sigils.SigilList[i].SigilName [@Player.Sigils.SigilList[i].SigilCount]</h6>
+				<div @onclick="() => Player.Sigils.BuySigil(i)">
+					<div> Cast </div>
+					<div>Cost [@Player.Sigils.SigilList[i].CostText]</div>
+				</div>
+			</div>
+		</div>
+	}
+
+</div>
 
 <style lang="css" scoped>
 	.upgrades {

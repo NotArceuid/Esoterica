@@ -7,6 +7,12 @@ using Esoterica.Types;
 
 public class Sigils : ISavable
 {
+	public List<SigilType> SigilList = [
+		new SigilType("Lesser Sigil", () => Player.Magicules >= 10, "100", 100),
+		new SigilType("Sigil", () => Player.Magicules >= 1000, "10000", 1000),
+		new SigilType("Greater Sigil", () => Player.Magicules >= 100000000, "100000000", 1000000),
+	];
+
 	public Sigils()
 	{
 		Game.PhysicsProcessTick += () => {
@@ -22,9 +28,18 @@ public class Sigils : ISavable
 	public struct SigilType: ICastables
 	{
 		public string SigilName { get; set; }
-		public event Action<bool> RequirementsMet;
+		public event Func<bool> RequirementsMet;
 		public BigDouble CastingProgress { get; set; }
 		public BigDouble MaxProgress { get; set; }
+		public BigDouble SigilCount { get; set; }
+		public string CostText { get; set; }
+		public SigilType(string name, Func<bool> requirement, string costText, BigDouble maxProgress)
+		{
+			SigilName = name;
+			RequirementsMet = requirement;
+			CostText = costText;
+			MaxProgress = maxProgress;
+		}
 
 	}
 
