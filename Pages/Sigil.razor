@@ -6,14 +6,14 @@
 <div class="p-1 m-6 w-full">
 	<h1 class="text-center text-lg ml-5 border-t-2 mb-1">Sigils</h1>
 
-	@for (int i = 0; i < Player.Sigils.SigilList.Count; i++)
+	@for (int i = 0; i < Game.Sigils.SigilList.Count; i++)
 	{
 		<div class="upgrades">
 			<div class="upgrade-box">
-				<h6>@Player.Sigils.SigilList[i].SigilName [@Player.Sigils.SigilList[i].SigilCount]</h6>
-				<div @onclick="() => Player.Sigils.BuySigil(i)">
+				<h6>@Game.Sigils.SigilList[i].SigilName [@Game.Sigils.SigilList[i].CastingCount]</h6>
+				<div @onclick="() => Game.Sigils.BuySigil(i)">
 					<div> Cast </div>
-					<div>Cost [@Player.Sigils.SigilList[i].CostText]</div>
+					<div>Cost [@Game.Sigils.SigilList[i].CostText]</div>
 				</div>
 			</div>
 		</div>

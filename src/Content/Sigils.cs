@@ -3,44 +3,56 @@
 // Level - Determines how good is your tier bonus multipliers
 
 using Esoterica.Globals;
+using Esoterica.Pages;
 using Esoterica.Types;
 
 public class Sigils : ISavable
 {
 	public List<SigilType> SigilList = [
-		new SigilType("Lesser Sigil", () => Player.Magicules >= 10, "100", 100),
-		new SigilType("Sigil", () => Player.Magicules >= 1000, "10000", 1000),
-		new SigilType("Greater Sigil", () => Player.Magicules >= 100000000, "100000000", 1000000),
+		new SigilType
+		(
+			"Lesser Sigil", 
+			() => Player.Magicules >= 10, 
+			() => Player.Magicules -= 10,
+			"10", 
+			100
+		),
 	];
-
+ 
 	public Sigils()
 	{
-		Game.PhysicsProcessTick += () => {
 
-		};
 	}
 
 	public void BuySigil(int sigilId)
 	{
+		var currentSigil = SigilList[sigilId];
+		var canbuy = currentSigil.RequirementsMet?.Invoke();
 
+		if (canbuy!.Value)
+		{
+			
+		}
 	}
 
-	public struct SigilType: ICastables
+	public struct SigilType : ICastables
 	{
 		public string SigilName { get; set; }
-		public event Func<bool> RequirementsMet;
+		public Func<bool> RequirementsMet;
 		public BigDouble CastingProgress { get; set; }
 		public BigDouble MaxProgress { get; set; }
-		public BigDouble SigilCount { get; set; }
 		public string CostText { get; set; }
-		public SigilType(string name, Func<bool> requirement, string costText, BigDouble maxProgress)
+		public SigilType(string name, Func<bool> requirement, Action onFinishCasting, string costText, BigDouble maxProgress)
 		{
 			SigilName = name;
 			RequirementsMet = requirement;
+			OnFinishCasting = onFinishCasting;
 			CostText = costText;
 			MaxProgress = maxProgress;
 		}
 
+		public Action OnFinishCasting { get; set; }
+		public BigDouble CastingCount { get; set; }
 	}
 
 	public void OnLoad()

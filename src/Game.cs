@@ -1,9 +1,15 @@
 using System.Timers;
+using Esoterica.Content;
+
 namespace Esoterica.Globals;
 public static class Game
 {
-	public static event Action ProcessTick;
-	public static event Action PhysicsProcessTick;
+	public static event Action? ProcessTick;
+	public static event Action? PhysicsProcessTick;
+
+	public static Casting Casting { get; set; } = new();
+	public static Sigils Sigils { get; set; } = new();
+	public static Rank Rank { get; set; } = new();
 
 	public static void StartGame()
 	{
