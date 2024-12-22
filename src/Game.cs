@@ -13,16 +13,27 @@ public static class Game
 
 	public static void StartGame()
 	{
-		var timer = new System.Timers.Timer();
-		timer.Interval = 1000 / 20; // A Tick is 1000/20 ms or 1/20 seconds
-		timer.AutoReset = true;
-		timer.Elapsed += EventLoop;
-		timer.Start();
+		var physicsTimer = new System.Timers.Timer();
+		physicsTimer.Interval = 1000 / 10; // A Tick is 1000/20 ms or 1/20 seconds
+		physicsTimer.AutoReset = true;
+		physicsTimer.Elapsed += EventLoop;
+		physicsTimer.Start();
+	
+		var processTimer = new System.Timers.Timer();
+		processTimer.Interval = 1000 / 60; 
+		processTimer.AutoReset = true;
+		processTimer.Elapsed += (s, e) => ProcessTick?.Invoke(); 
+		processTimer.Start();
 	}
 
 	public static void EventLoop(object? sender, ElapsedEventArgs e)
 	{
 		PhysicsProcessTick?.Invoke();
-		Console.WriteLine("Heya");
+		CalculateMagiculeGain();
+	}
+
+	public static void CalculateMagiculeGain()
+	{
+		Player.Magicules += Sigils.SigilMultipliers;		
 	}
 }

@@ -21,7 +21,8 @@
 			<div class="w=11/12 h-6 flex flex-col justify-center dark:bg-blue-500"
 				:style="{ width: ratio + '%' }">
 			</div>
-			<span class="absolute w-full left-0 font-sans text-xs">@Game.Rank.CurrentLevelProgress / 100 </span>
+			<span class="absolute w-full left-0 font-sans text-xs">@Game.Rank.CurrentLevelProgress / 100
+			</span>
 		</div>
 		<div class="text-end w-1/12 m-2">
 			<div class="text-xs text-gray-800 dark:text-white ">Adeptus Lueeium </div>
@@ -29,22 +30,25 @@
 		</div>
 	</div>
 
-		<div class="text-sm ml-auto text-white border-b-2 space-x-2 navigation p-2">
-			<a href="sigils">Sigils</a>
-			<a href="sigils">Servitors</a>
-			<a href="sigils">Crystals</a>
-			@* <a href="stats">Summoning</a> *@
-			@* <a href="sigils">Rituals</a> *@
-			@* <a href="sigils">Invocation</a> *@
-			@* <a href="sigils">Astrolabe</a> *@
-			@* <a href="sigils">Trials</a> *@
-			<a href="sigils">P2w Shop</a>
-			<a href="sigils">Settings</a>
-		</div>
+	<div class="text-sm ml-auto text-white border-b-2 space-x-2 navigation p-2">
+		<a href="sigils">Sigils</a>
+		<a href="sigils">Crystals</a>
+		<a href="sigils">Evocation</a>
+		@* <a href="stats">Summoning</a> *@
+		@* <a href="sigils">Rituals</a> *@
+		@* <a href="sigils">Invocation</a> *@
+		@* <a href="sigils">Astrolabe</a> *@
+		@* <a href="sigils">Trials</a> *@
+		<a href="sigils">P2w Shop</a>
+		<a href="sigils">Settings</a>
+	</div>
 </div>
 
 @code {
-	@* private float _ratio =  *@
+	protected override void OnInitialized()
+	{
+		Game.ProcessTick += () => StateHasChanged();
+	}
 }
 
 <style>

@@ -8,40 +8,45 @@ using Esoterica.Types;
 
 public class Sigils : ISavable
 {
+	public BigDouble SigilMultipliers { get; set; } = BigDouble.Zero;
 	public List<SigilType> SigilList = [
 		new SigilType
 		(
 			"Lesser Sigil", 
-			() => Player.Magicules >= 10, 
-			() => Player.Magicules -= 10,
-			() => {},
- 			"10", 
+			() => Player.Magicules >= 100, 
+			() => Player.Magicules -= 100,
+			() => Game.Sigils.SigilMultipliers += 1,
+ 			"100", 
 			100
 		),
 		new SigilType
 		(
-			"Lesser Sigil", 
-			() => Player.Magicules >= 10, 
-			() => Player.Magicules -= 10,
-			() => {},
- 			"10", 
-			100
+			"Sigil", 
+			() => Player.Magicules >= 2500, 
+			() => Player.Magicules -= 2500,
+			() =>  Game.Sigils.SigilMultipliers += 10,
+ 			"2500",  
+			500
+		),
+		new SigilType
+		(
+			"Greater Sigil", 
+			() => Player.Magicules >= 10000, 
+			() => Player.Magicules -= 10000,
+			() =>  Game.Sigils.SigilMultipliers += 25,
+ 			"10000",  
+			1000
 		),
 	];
- 
-	public Sigils()
-	{
-
-	}
 
 	public void BuySigil(int sigilId)
 	{
-		Console.WriteLine($"bought + {sigilId}");
 		var currentSigil = SigilList[sigilId];
 		var canbuy = currentSigil.RequirementsMet?.Invoke();
 
 		if (canbuy!.Value)
 		{
+		Console.WriteLine($"bought + {sigilId}");		
 			currentSigil.OnRequirementMet?.Invoke();
 			Game.Casting.CastingQueue.Enqueue(currentSigil);
 		}
@@ -49,7 +54,7 @@ public class Sigils : ISavable
 
 	public struct SigilType : ICastables
 	{
-		public string SigilName { get; set; }
+		public string Name { get; set; }
 		public Func<bool> RequirementsMet;
 		public Action OnRequirementMet;
 		public BigDouble CastingProgress { get; set; }
@@ -57,7 +62,7 @@ public class Sigils : ISavable
 		public string CostText { get; set; }
 		public SigilType(string name, Func<bool> requirement, Action onRequirementMet, Action onFinishCasting, string costText, BigDouble maxProgress)
 		{
-			SigilName = name;
+			Name = name;
 			RequirementsMet = requirement;
 			OnRequirementMet = onRequirementMet;
 			OnFinishCasting = onFinishCasting;

@@ -11,7 +11,7 @@
 		int i = iteration;
 		<div class="upgrades">
 			<div class="upgrade-box">
-				<h6>@Game.Sigils.SigilList[i].SigilName [@Game.Sigils.SigilList[i].CastingCount]</h6>
+				<h6>@Game.Sigils.SigilList[i].Name [@Game.Sigils.SigilList[i].CastingCount]</h6>
 				<div @onclick="() => Game.Sigils.BuySigil(i)">
 					<div> Cast </div>
 					<div>Cost [@Game.Sigils.SigilList[i].CostText]</div>
