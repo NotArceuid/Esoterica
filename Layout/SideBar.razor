@@ -1,7 +1,17 @@
 @using Esoterica.Globals
 <div>
 	<h1 class="text-center text-sm">Casting (@Player.Focus /s)</h1>
-	<div class="side-bar min-w-36 min-h-72 border-t-2 border-b-2">
-
+	<div class="side-bar min-w-52 pt-4 pb-4 gap-y-2 min-h-72 border-t-2 border-b-2 flex flex-col">
+		<div class="text-white w-full border-2 border-gray-400 p-2 flex flex-col justify-center" @onclick="AbortCast">
+			<div>Basic Sigil</div>
+			<div class="text-sm">(10000/1000000)</div>
+		</div>
 	</div>
 </div>
+
+ @code {
+	protected void AbortCast()
+	{
+
+	}
+ }

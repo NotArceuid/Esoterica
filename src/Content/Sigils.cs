@@ -14,7 +14,17 @@ public class Sigils : ISavable
 			"Lesser Sigil", 
 			() => Player.Magicules >= 10, 
 			() => Player.Magicules -= 10,
-			"10", 
+			() => {},
+ 			"10", 
+			100
+		),
+		new SigilType
+		(
+			"Lesser Sigil", 
+			() => Player.Magicules >= 10, 
+			() => Player.Magicules -= 10,
+			() => {},
+ 			"10", 
 			100
 		),
 	];
@@ -26,12 +36,14 @@ public class Sigils : ISavable
 
 	public void BuySigil(int sigilId)
 	{
+		Console.WriteLine($"bought + {sigilId}");
 		var currentSigil = SigilList[sigilId];
 		var canbuy = currentSigil.RequirementsMet?.Invoke();
 
 		if (canbuy!.Value)
 		{
-			
+			currentSigil.OnRequirementMet?.Invoke();
+			Game.Casting.CastingQueue.Enqueue(currentSigil);
 		}
 	}
 
@@ -39,13 +51,15 @@ public class Sigils : ISavable
 	{
 		public string SigilName { get; set; }
 		public Func<bool> RequirementsMet;
+		public Action OnRequirementMet;
 		public BigDouble CastingProgress { get; set; }
 		public BigDouble MaxProgress { get; set; }
 		public string CostText { get; set; }
-		public SigilType(string name, Func<bool> requirement, Action onFinishCasting, string costText, BigDouble maxProgress)
+		public SigilType(string name, Func<bool> requirement, Action onRequirementMet, Action onFinishCasting, string costText, BigDouble maxProgress)
 		{
 			SigilName = name;
 			RequirementsMet = requirement;
+			OnRequirementMet = onRequirementMet;
 			OnFinishCasting = onFinishCasting;
 			CostText = costText;
 			MaxProgress = maxProgress;

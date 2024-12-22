@@ -6,8 +6,9 @@
 <div class="p-1 m-6 w-full">
 	<h1 class="text-center text-lg ml-5 border-t-2 mb-1">Sigils</h1>
 
-	@for (int i = 0; i < Game.Sigils.SigilList.Count; i++)
+	@for (int iteration = 0; iteration < Game.Sigils.SigilList.Count; iteration++)
 	{
+		int i = iteration;
 		<div class="upgrades">
 			<div class="upgrade-box">
 				<h6>@Game.Sigils.SigilList[i].SigilName [@Game.Sigils.SigilList[i].CastingCount]</h6>
