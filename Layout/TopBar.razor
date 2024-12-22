@@ -19,9 +19,9 @@
 	<div class="w-full flex flex-row items-center m-1">
 		<div class="w-11/12 h-6 flex flex-col justify-center text-white text-center dark:bg-gray-500">
 			<div class="w=11/12 h-6 flex flex-col justify-center dark:bg-blue-500"
-				:style="{ width: ratio + '%' }">
+				style="@progressBarWidth">
 			</div>
-			<span class="absolute w-full left-0 font-sans text-xs">@Game.Rank.CurrentLevelProgress / 100
+			<span class="absolute w-full left-0 font-sans text-xs">@Game.Rank.CurrentLevelProgress / @Game.Rank.GetRequiredLevelProgress()
 			</span>
 		</div>
 		<div class="text-end w-1/12 m-2">
@@ -45,6 +45,7 @@
 </div>
 
 @code {
+	protected string progressBarWidth => $"width: {(float)(Game.Rank.GetRequiredLevelProgress() / Game.Rank.CurrentLevelProgress).ToDouble()}%";
 	protected override void OnInitialized()
 	{
 		Game.ProcessTick += () => StateHasChanged();

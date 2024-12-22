@@ -15,7 +15,7 @@ public class Sigils : ISavable
 			"Lesser Sigil", 
 			() => Player.Magicules >= 100, 
 			() => Player.Magicules -= 100,
-			() => Game.Sigils.SigilMultipliers += 1,
+			() => { Game.Sigils.SigilMultipliers += 1; Game.Rank.GiveLevelExp(2.5); },
  			"100", 
 			100
 		),
@@ -24,7 +24,7 @@ public class Sigils : ISavable
 			"Sigil", 
 			() => Player.Magicules >= 2500, 
 			() => Player.Magicules -= 2500,
-			() =>  Game.Sigils.SigilMultipliers += 10,
+			() => { Game.Sigils.SigilMultipliers += 10; Game.Rank.GiveLevelExp(10); },
  			"2500",  
 			500
 		),
@@ -33,7 +33,7 @@ public class Sigils : ISavable
 			"Greater Sigil", 
 			() => Player.Magicules >= 10000, 
 			() => Player.Magicules -= 10000,
-			() =>  Game.Sigils.SigilMultipliers += 25,
+			() => { Game.Sigils.SigilMultipliers += 25; Game.Rank.GiveLevelExp(25); },
  			"10000",  
 			1000
 		),

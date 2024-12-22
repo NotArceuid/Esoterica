@@ -6,12 +6,11 @@ using Esoterica.Types;
 namespace Esoterica.Content;
 public class Rank : ISavable
 {
-	public long Level { get; set; }
-	public long CurrentLevelProgress { get; set; }
-	public event Action<BigDouble> GetRequiredLevelProgress;
+	public int Level { get; set; } = 1;
+	public BigDouble CurrentLevelProgress { get; set; }
 	public event Action OnLevelUp;
 
-	public long Tier { get; set; }
+	public int Tier { get; set; }
 	public long CurrentTierProgress { get; set; }
 	public event Action<BigDouble> GetRequiredTierProgress;
 	public event Action OnTierUp;
@@ -27,6 +26,18 @@ public class Rank : ISavable
 	public void OnLoad()
 	{
 
+	}
+
+	public BigDouble GetRequiredLevelProgress()
+	{
+		var requirement = new BigDouble(15 * this.Level * 1.12).Pow(this.Level) ;
+		return requirement;
+	}
+
+	public void GiveLevelExp(BigDouble amount)
+	{
+		var calculated
+		CurrentLevelProgress += amount;
 	}
 }
 
