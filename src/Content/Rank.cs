@@ -2,6 +2,8 @@
 // Tier - Unlocks bonus multipliers
 // Level - Determines how good is your tier bonus multipliers
 
+using System.Reflection.Metadata.Ecma335;
+using Esoterica.Globals;
 using Esoterica.Types;
 namespace Esoterica.Content;
 public class Rank : ISavable
@@ -14,19 +16,27 @@ public class Rank : ISavable
 	public long CurrentTierProgress { get; set; }
 	public event Action<BigDouble> GetRequiredTierProgress;
 	public event Action OnTierUp;
-
 	public struct RankType
 	{
 		public string RankName { get; set; }
-		public event Action<bool> RankUpCheck;
-		public event Action RankUp;
-
+		public ResponseAction<bool> RankRequirement;
+		public ResponseAction<string[]> RequirementText;
+		public Action OnRankUp;
+		public RankType(string name, ResponseAction<bool> rankRequirement, ResponseAction<string[]> requirementText, Action onRankUp)
+		{
+			RankName = name;
+			RankRequirement = rankRequirement;
+			RequirementText = requirementText;
+			OnRankUp = onRankUp;
+		}
 	}
 
 	public void OnLoad()
 	{
 
 	}
+
+	
 
 	public BigDouble GetRequiredLevelProgress()
 	{
@@ -36,10 +46,57 @@ public class Rank : ISavable
 
 	public void GiveLevelExp(BigDouble amount)
 	{
-		var calculated
+		// Todo: find the meth for it
+		var requiredAmount = GetRequiredLevelProgress();
+		var leftOverAmount = amount - requiredAmount;
+		
 		CurrentLevelProgress += amount;
+	
+		if (CurrentLevelProgress >= requiredAmount)
+		{
+			CurrentLevelProgress = 0;
+			Level++;
+		}
+	}
+
+	public List<RankType> Ranks = new() {
+		new RankType(
+			"Uninitiated",
+			() => true,
+			() => ["none"],
+			() => {}
+		),
+		new RankType(
+			"Neophyte",
+			() => Player.Magicules >= 1000 && Game.Sigils.SigilList[0].CastingCount >= 25,
+			() => [$"Magicules ({Player.Magicules}/1000)", $"Lesser sigils ({Game.Sigils.SigilList[0].CastingCount}/25) "],
+			() => Game.Rank.RankBonusTracker[0] = 1),
+		new RankType(
+			"Zelator",
+			() => false,
+			() => [],
+			() => {}
+		)		
+	};
+
+	public List<Func<BigDouble>> RankBonuses = new () {
+		() => new BigDouble(1+0.25 * (5^Game.Rank.Tier) * Game.Rank.Level ) * Game.Rank.RankBonusTracker[0], // magicules bonus
+		() => BigDouble.Zero
+	}; 
+
+	// if it is not activated, the bonuses will be 0, this negating the effects
+	public int[] RankBonusTracker = [1];
+
+	public void GiveRank(int rankId)
+	{
+		Player.Rank = rankId;
+		Ranks[rankId].OnRankUp?.Invoke();
 	}
 }
+
+// Rank - Specifies the content that is unlocked
+// Tier - Determines which Upgrades you're going to get
+// Levels - Grant multipliers to your rank
 
 // Ripped straight out of golden dawn's rank system lolv
 // 	Neophyte,

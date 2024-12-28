@@ -20,7 +20,7 @@ public static class Game
 		physicsTimer.Start();
 	
 		var processTimer = new System.Timers.Timer();
-		processTimer.Interval = 1000 / 60; 
+		processTimer.Interval = 1000 / 20; 
 		processTimer.AutoReset = true;
 		processTimer.Elapsed += (s, e) => ProcessTick?.Invoke(); 
 		processTimer.Start();
@@ -34,6 +34,6 @@ public static class Game
 
 	public static void CalculateMagiculeGain()
 	{
-		Player.Magicules += Sigils.SigilMultipliers;		
+		Player.Magicules += Sigils.SigilMultipliers * Rank.RankBonuses[0]!.Invoke();		
 	}
 }

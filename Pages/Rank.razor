@@ -1,0 +1,43 @@
+@page "/ranks"
+@using Esoterica.Globals
+
+<div class="flex min-w-full text-white">
+    <div class="w-4/12">
+       <div class="text-center mb-8 border-b-2 border-white"> (@Game.Rank.Ranks[Player.Rank + 1].RankName) Requirements</div>
+       @foreach (var requirements in RankRequirementText!)
+        {
+            <div>@requirements</div>
+        }
+        <button class="w-full border-2 border-white mt-12" @click="RankUp()">Rank Up</button>
+    </div>
+    <div class="w-6/12 ">
+        <div class="text-center mb-8 border-b-2 border-white">Current Rank: (@Game.Rank.Ranks[Player.Rank].RankName)</div>
+        @for (int i = 0; i <= Game.Rank.RankBonusTracker.Length; i++)
+        {
+            int iteration = i;
+            Console.WriteLine(iteration);
+                <div>@RankBonuses[iteration]</div>
+        }
+    </div>
+</div>
+
+@code {
+    private string[]? RankRequirementText => Game.Rank.Ranks[Player.Rank + 1].RequirementText?.Invoke();
+    private string[] RankBonuses = [
+        $"Magicules {Game.Rank.RankBonuses[0]?.Invoke()}",
+        ""
+    ];
+    protected override void OnInitialized()
+    {
+        Game.ProcessTick += StateHasChanged;
+    }
+
+    private void RankUp()
+    {
+        var canRankUp = Game.Rank.Ranks[Player.Rank + 1].RankRequirement?.Invoke();
+        if (canRankUp!.Value)
+        {
+            Game.Rank.GiveRank(Player.Rank + 1);
+        }
+    }
+}    
