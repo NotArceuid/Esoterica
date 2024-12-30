@@ -8,47 +8,64 @@ using Esoterica.Types;
 
 public class Sigils : ISavable
 {
-	public BigDouble SigilMultipliers { get; set; } = BigDouble.Zero;
+	public static BigDouble SigilMultipliers => (Player.SigilCount[0] * .025) + (Player.SigilCount[1] * .45) + (Player.SigilCount[2] * 1.5);
 	public List<SigilType> SigilList = [
 		new SigilType
 		(
-			"Lesser Sigil", 
-			() => Player.Magicules >= 100, 
-			() => Player.Magicules -= 100,
-			() => { Game.Sigils.SigilMultipliers += 1; Game.Rank.GiveLevelExp(2.5); },
- 			"100", 
+			"Lesser Sigil",
+			() => Player.Magicules >= 10,
+			() => Player.Magicules -= 10,
+			() =>
+			{
+				Game.Rank.GiveLevelExp(5);
+				Player.SigilCount[0]++;
+			},
+ 			"10 Magiucles",
 			100
 		),
 		new SigilType
 		(
-			"Sigil", 
-			() => Player.Magicules >= 2500, 
-			() => Player.Magicules -= 2500,
-			() => { Game.Sigils.SigilMultipliers += 10; Game.Rank.GiveLevelExp(10); },
- 			"2500",  
+			"Sigil",
+			() => Player.SigilCount[0] >= 10 && Player.SigilCount[0] - 10 >= 0,
+			() => {  },
+			() =>
+			{
+				var sigil = Game.Sigils.SigilList[0]; Player.SigilCount[0] -= 10;
+				Game.Rank.GiveLevelExp(75);
+				Player.SigilCount[1]++;
+			},
+ 			"10 Lesser Sigils",
 			500
 		),
 		new SigilType
 		(
-			"Greater Sigil", 
-			() => Player.Magicules >= 10000, 
-			() => Player.Magicules -= 10000,
-			() => { Game.Sigils.SigilMultipliers += 25; Game.Rank.GiveLevelExp(25); },
- 			"10000",  
+			"Greater Sigil",
+			() =>   Player.SigilCount[1] >= 10  && Player.SigilCount[0] - 10 >= 0,
+			() =>  {  },
+			() =>
+			{
+				var sigil = Game.Sigils.SigilList[1];  Player.SigilCount[1] -= 10;
+				Game.Rank.GiveLevelExp(500);
+				Player.SigilCount[2]++;
+			},
+ 			"10 Sigils",
 			1000
 		),
 	];
 
 	public void BuySigil(int sigilId)
 	{
+		if (Game.Casting.CastingQueue.Count >= Game.Casting.MaxConcurrentCasts)
+			return;
+
 		var currentSigil = SigilList[sigilId];
+		var newSigil = new SigilType(currentSigil.Name, currentSigil.RequirementsMet, currentSigil.OnRequirementMet, currentSigil.OnFinishCasting, currentSigil.CostText, currentSigil.MaxProgress);
 		var canbuy = currentSigil.RequirementsMet?.Invoke();
 
 		if (canbuy!.Value)
 		{
-		Console.WriteLine($"bought + {sigilId}");		
 			currentSigil.OnRequirementMet?.Invoke();
-			Game.Casting.CastingQueue.Enqueue(currentSigil);
+			Game.Casting.CastingQueue.Enqueue(newSigil);
 		}
 	}
 
@@ -71,7 +88,6 @@ public class Sigils : ISavable
 		}
 
 		public Action OnFinishCasting { get; set; }
-		public BigDouble CastingCount { get; set; }
 	}
 
 	public void OnLoad()

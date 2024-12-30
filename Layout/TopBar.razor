@@ -26,7 +26,7 @@
 		</div>
 		<div class="text-end w-1/12 m-2">
 			<div class="text-xs text-gray-800 dark:text-white ">Adeptus Lueeium </div>
-			<div class="text-xs text-gray-800 dark:text-white ">@Game.Rank.Tier ： @Game.Rank.Level </div>
+			<div class="text-xs text-gray-800 dark:text-white ">@Game.Rank.Tier ： @Player.Level </div>
 		</div>
 	</div>
 
@@ -46,7 +46,7 @@
 </div>
 
 @code {
-	protected string progressBarWidth => $"width: {(float)(Game.Rank.GetRequiredLevelProgress() / Game.Rank.CurrentLevelProgress).ToDouble()}%";
+	protected string progressBarWidth => $"width: {( Game.Rank.CurrentLevelProgress / Game.Rank.GetRequiredLevelProgress()).ToDouble() * 100}%";
 	protected override void OnInitialized()
 	{
 		Game.ProcessTick += StateHasChanged;

@@ -8,14 +8,13 @@ using Esoterica.Types;
 namespace Esoterica.Content;
 public class Rank : ISavable
 {
-	public int Level { get; set; } = 1;
 	public BigDouble CurrentLevelProgress { get; set; }
-	public event Action OnLevelUp;
+	// public event Action OnLevelUp;
 
 	public int Tier { get; set; }
 	public long CurrentTierProgress { get; set; }
-	public event Action<BigDouble> GetRequiredTierProgress;
-	public event Action OnTierUp;
+	// public event Action<BigDouble> GetRequiredTierProgress;
+	// public event Action OnTierUp;
 	public struct RankType
 	{
 		public string RankName { get; set; }
@@ -40,7 +39,7 @@ public class Rank : ISavable
 
 	public BigDouble GetRequiredLevelProgress()
 	{
-		var requirement = new BigDouble(15 * this.Level * 1.12).Pow(this.Level) ;
+		var requirement = new BigDouble(17.9 * Player.Level) * new BigDouble(1.12).Pow(Player.Level) ;
 		return requirement;
 	}
 
@@ -55,7 +54,7 @@ public class Rank : ISavable
 		if (CurrentLevelProgress >= requiredAmount)
 		{
 			CurrentLevelProgress = 0;
-			Level++;
+			Player.Level++;
 		}
 	}
 
@@ -68,8 +67,8 @@ public class Rank : ISavable
 		),
 		new RankType(
 			"Neophyte",
-			() => Player.Magicules >= 1000 && Game.Sigils.SigilList[0].CastingCount >= 25,
-			() => [$"Magicules ({Player.Magicules}/1000)", $"Lesser sigils ({Game.Sigils.SigilList[0].CastingCount}/25) "],
+			() => Player.Magicules >= 100000 && Player.SigilCount[2] >= 1 && Player.Level >= 10,
+			() => [$"Magicules ({Player.Magicules}/1000)", $"Greater Sigils ({Player.SigilCount[2]}/1) "],
 			() => Game.Rank.RankBonusTracker[0] = 1),
 		new RankType(
 			"Zelator",
@@ -80,7 +79,7 @@ public class Rank : ISavable
 	};
 
 	public List<Func<BigDouble>> RankBonuses = new () {
-		() => new BigDouble(1+0.25 * (5^Game.Rank.Tier) * Game.Rank.Level ) * Game.Rank.RankBonusTracker[0], // magicules bonus
+		() => new BigDouble(1+0.25 * (5^Game.Rank.Tier) * Player.Level ) * Game.Rank.RankBonusTracker[0], // magicules bonus
 		() => BigDouble.Zero
 	}; 
 

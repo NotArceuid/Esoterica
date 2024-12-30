@@ -1,6 +1,6 @@
 @using Esoterica.Globals
 <div>
-	<h1 class="text-center text-sm">Casting (@Player.Focus /s)</h1>
+	<h1 class="text-center text-sm pb-2">Casting (@Player.Focus /s)</h1>
 	<div class="side-bar min-w-52 pt-4 pb-4 gap-y-2 min-h-72 border-t-2 border-b-2 flex flex-col">
 
 		@foreach (var item in Game.Casting.CastingQueue)
@@ -11,6 +11,7 @@
 				<div class="text-sm">(@item.CastingProgress/@item.MaxProgress)</div>
 			</div>
 		}
+		<h1 class="mt-auto ml-auto text-xs">@Game.Casting.CastingQueue.Count / @Game.Casting.MaxConcurrentCasts</h1>
 	</div>
 </div>
 

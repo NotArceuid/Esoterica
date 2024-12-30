@@ -3,15 +3,15 @@
 
 <PageTitle>Sigil</PageTitle>
 
-<div class="p-1 m-6 w-full">
-	<h1 class="text-center text-lg ml-5 border-t-2 mb-1">Sigils</h1>
+<div class=" m-0 p-0 w-full e">
+	<h1 class="text-center text-md ml-5 border-b-2 pb-2">Sigils</h1>
 
 	@for (int iteration = 0; iteration < Game.Sigils.SigilList.Count; iteration++)
 	{
 		int i = iteration;
 		<div class="upgrades">
 			<div class="upgrade-box">
-				<h6>@Game.Sigils.SigilList[i].Name [@Game.Sigils.SigilList[i].CastingCount]</h6>
+				<h6>@Game.Sigils.SigilList[i].Name [@Player.SigilCount[i]]</h6>
 				<div @onclick="() => Game.Sigils.BuySigil(i)">
 					<div> Cast </div>
 					<div>Cost [@Game.Sigils.SigilList[i].CostText]</div>
@@ -22,7 +22,16 @@
 
 </div>
 
+@code {
+	protected override void OnInitialized()
+	{
+		Game.ProcessTick += StateHasChanged;
+	}
+}
+
+
 <style lang="css" scoped>
+	.e {margin-top:0 !important;}
 	.upgrades {
 		display: flex;
 		flex-direction: column;

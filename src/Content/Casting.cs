@@ -7,10 +7,10 @@ namespace Esoterica.Content;
 public class Casting
 {
 	public Queue<ICastables> CastingQueue { get; private set; } = new();
-	public int ConcurrentCasts { get; set; } = 0;
+	public int MaxConcurrentCasts { get; set; } = 3;
 	public void CastSpells()
 	{
-		if (CastingQueue.Count() == 0)
+		if (CastingQueue.Count == 0)
 			return;
 
 		var spell = CastingQueue.Peek();
@@ -19,10 +19,7 @@ public class Casting
 		if (spell.CastingProgress >= spell.MaxProgress)
 		{
 			spell.CastingProgress = 0;
-
-			  spell.OnFinishCasting?.Invoke();
-
-			spell.CastingCount++;
+			spell.OnFinishCasting?.Invoke();
 
 			CastingQueue.Dequeue();
 		}

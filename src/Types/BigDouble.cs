@@ -197,17 +197,17 @@ namespace Esoterica.Types
 
         public override string ToString()
         {
-            return BigNumber.FormatBigDouble(this, null, null);
+            return BigNumber.FormatBigDouble(this, null!, null!);
         }
 
         public string ToString(string format)
         {
-            return BigNumber.FormatBigDouble(this, format, null);
+            return BigNumber.FormatBigDouble(this, format, null!);
         }
 
-        public string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string? format, IFormatProvider? formatProvider)
         {
-            return BigNumber.FormatBigDouble(this, format, formatProvider);
+            return BigNumber.FormatBigDouble(this, format!, formatProvider!);
         }
 
         public static BigDouble Abs(BigDouble value)
@@ -440,6 +440,7 @@ namespace Esoterica.Types
 
         public static BigDouble operator ++(BigDouble value)
         {
+            // Console.WriteLine("Yeah");
             return value.Add(1);
         }
 
@@ -448,7 +449,7 @@ namespace Esoterica.Types
             return value.Subtract(1);
         }
 
-        public int CompareTo(object other)
+        public int CompareTo(object? other)
         {
             if (other == null)
             {
@@ -486,7 +487,7 @@ namespace Esoterica.Types
                 : Mantissa.CompareTo(other.Mantissa);
         }
 
-        public override bool Equals(object other)
+        public override bool Equals(object? other)
         {
             return other is BigDouble && Equals((BigDouble)other);
         }
