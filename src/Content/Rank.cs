@@ -68,7 +68,7 @@ public class Rank : ISavable
 		new RankType(
 			"Neophyte",
 			() => Player.Magicules >= 100000 && Player.SigilCount[2] >= 1 && Player.Level >= 10,
-			() => [$"Magicules ({Player.Magicules}/1000)", $"Greater Sigils ({Player.SigilCount[2]}/1) "],
+			() => [$"Magicules ({Player.Magicules.Format()}/100k)", $"Greater Sigils ({Player.SigilCount[2]}/1) "],
 			() => Game.Rank.RankBonusTracker[0] = 1),
 		new RankType(
 			"Zelator",
