@@ -12,10 +12,10 @@
 
         <div class="mt-auto mb-4">
             <div class="text-center mb-4 pb-2 pt-2 border-b border-t mt-4 border-white">Next rank will unlock</div>
-            <div>Lesser Sigil autocast</div>
-            <div>Crystals</div>
-            <div>New Rank Bonuses</div>
-            <div>New advancements</div>
+            @foreach (var nextRankUnlocks in NextRankUnlocks!)
+            {
+                <div>@nextRankUnlocks</div>
+            }
         </div>
 
         <button class="w-full border border-white mt-auto rounded-xl" @click="RankUp()">Rank Up</button>
@@ -38,6 +38,7 @@
 
 @code {
     private string[]? RankRequirementText => Game.Rank.Ranks[Player.Rank + 1].RequirementText?.Invoke();
+    private string[]? NextRankUnlocks => Game.Rank.Ranks[Player.Rank].RankUnlocks;
     private string[] RankBonuses = [
     $"Magicules: {Game.Rank.RankBonuses[0]?.Invoke()}x",
 ""

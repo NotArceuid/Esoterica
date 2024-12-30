@@ -20,13 +20,15 @@ public class Rank : ISavable
 		public string RankName { get; set; }
 		public ResponseAction<bool> RankRequirement;
 		public ResponseAction<string[]> RequirementText;
+		public string[] RankUnlocks;
 		public Action OnRankUp;
-		public RankType(string name, ResponseAction<bool> rankRequirement, ResponseAction<string[]> requirementText, Action onRankUp)
+		public RankType(string name, ResponseAction<bool> rankRequirement, ResponseAction<string[]> requirementText, Action onRankUp, string[] rankUnlocks)
 		{
 			RankName = name;
 			RankRequirement = rankRequirement;
 			RequirementText = requirementText;
 			OnRankUp = onRankUp;
+			RankUnlocks = rankUnlocks;
 		}
 	}
 
@@ -63,18 +65,22 @@ public class Rank : ISavable
 			"Uninitiated",
 			() => true,
 			() => ["none"],
-			() => {}
+			() => {},
+			["Lesser Sigil Autocast", "Crystals", "New Rank Bonuses", "New Advancements"]
 		),
 		new RankType(
 			"Neophyte",
 			() => Player.Magicules >= 100000 && Player.SigilCount[2] >= 1 && Player.Level >= 10,
 			() => [$"Magicules ({Player.Magicules.Format()}/100k)", $"Greater Sigils ({Player.SigilCount[2]}/1) "],
-			() => Game.Rank.RankBonusTracker[0] = 1),
+			() => Game.Rank.RankBonusTracker[0] = 1,
+			[]
+		),	
 		new RankType(
 			"Zelator",
 			() => false,
 			() => [],
-			() => {}
+			() => {},
+			[]
 		)		
 	];
 
