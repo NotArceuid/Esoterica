@@ -58,7 +58,7 @@ public class Rank : ISavable
 		}
 	}
 
-	public List<RankType> Ranks = new() {
+	public List<RankType> Ranks = [
 		new RankType(
 			"Uninitiated",
 			() => true,
@@ -76,7 +76,7 @@ public class Rank : ISavable
 			() => [],
 			() => {}
 		)		
-	};
+	];
 
 	public List<Func<BigDouble>> RankBonuses = new () {
 		() => new BigDouble(1+0.25 * (5^Game.Rank.Tier) * Player.Level ) * Game.Rank.RankBonusTracker[0], // magicules bonus

@@ -9,7 +9,7 @@ using Random = System.Random;
 using UnityEngine;
 #endif
 
-namespace Esoterica.Types
+namespace Esoterica.Lib
 {
     public struct BigDouble : IFormattable, IComparable, IComparable<BigDouble>, IEquatable<BigDouble>
     {

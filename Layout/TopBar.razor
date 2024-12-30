@@ -3,7 +3,7 @@
 	<div class="flex">
 		<div class="flex flex-col p-2 border-b-2">
 			<div class="flex flex-row space-x-6 text-sm text-white currencies">
-				<a>Magicules: @Player.Magicules </a>
+				<a>Magicules: @Player.Magicules.Format() </a>
 				<a>Essence: 0</a>
 				<a>Shards: 0</a>
 				<a>Ichor: 0</a>
@@ -21,11 +21,11 @@
 			<div class="w=11/12 h-6 flex flex-col justify-center dark:bg-blue-500"
 				style="@progressBarWidth">
 			</div>
-			<span class="absolute w-full left-0 font-sans text-xs">@Game.Rank.CurrentLevelProgress / @Game.Rank.GetRequiredLevelProgress()
+			<span class="absolute w-full left-0 font-sans text-xs">@Game.Rank.CurrentLevelProgress.Format() / @Game.Rank.GetRequiredLevelProgress().Format()
 			</span>
 		</div>
 		<div class="text-end w-1/12 m-2">
-			<div class="text-xs text-gray-800 dark:text-white ">Adeptus Lueeium </div>
+			<div class="text-xs text-gray-800 dark:text-white ">@Game.Rank.Ranks[Player.Rank].RankName </div>
 			<div class="text-xs text-gray-800 dark:text-white ">@Game.Rank.Tier ： @Player.Level </div>
 		</div>
 	</div>
