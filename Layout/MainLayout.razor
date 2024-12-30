@@ -1,15 +1,26 @@
-﻿@inherits LayoutComponentBase
+﻿@using Esoterica.Globals
+@inherits LayoutComponentBase
 
 <div class="page">
     <main>
         <div class="topbar">
             <TopBar />
         </div>
-        <article class="flex flex-row content space-x-4 space-y-4 p-4">
+        <article class="flex flex-row content space-x-4 p-4">
             <SideBar />
+            <div class="p-0 m-0 w-full" style="min-height: 75vh;">
                 @Body
+            </div>
+
         </article>
     </main>
 </div>
 
-<h6 class="text-xs absolute right-0">Esoterica dev v0.0.1</h6>
+<h6 class="text-xs absolute right-8 opacity-90">Esoterica dev v0.0.1</h6>
+
+@code {
+    protected override void OnInitialized() 
+    {
+        Game.StartGame();
+    }
+}

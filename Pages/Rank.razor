@@ -1,0 +1,59 @@
+@page "/ranks"
+@using Esoterica.Globals
+
+<div class="flex w-full text-white">
+    <div class="w-5/12 ml-11 flex flex-col">
+        <div class="text-center pb-2 mb-8 border-b border-white"> Next rank (@Game.Rank.Ranks[Player.Rank +
+            1].RankName) Requirements</div>
+        @foreach (var requirements in RankRequirementText!)
+        {
+            <div>@requirements</div>
+        }
+
+        <div class="mt-auto mb-4">
+            <div class="text-center mb-4 pb-2 pt-2 border-b border-t mt-4 border-white">Next rank will unlock</div>
+            @foreach (var nextRankUnlocks in NextRankUnlocks!)
+            {
+                <div>@nextRankUnlocks</div>
+            }
+        </div>
+
+        <button class="w-full border border-white mt-auto rounded-xl" @click="RankUp()">Rank Up</button>
+    </div>
+    <div class="w-6/12 ml-auto flex flex-col" style="min-height: 50vh; ">
+        <div class="text-center mb-8 pb-2 border-b border-white">Rank Bonuses</div>
+
+        <div>
+            @for (int i = 0; i <= Game.Rank.RankBonusTracker.Length; i++)
+            {
+                int iteration = i;
+                Console.WriteLine(iteration);
+                <div>@RankBonuses[iteration]</div>
+            }
+        </div>
+
+
+    </div>
+</div>
+
+@code {
+    private string[]? RankRequirementText => Game.Rank.Ranks[Player.Rank + 1].RequirementText?.Invoke();
+    private string[]? NextRankUnlocks => Game.Rank.Ranks[Player.Rank].RankUnlocks;
+    private string[] RankBonuses = [
+    $"Magicules: {Game.Rank.RankBonuses[0]?.Invoke()}x",
+""
+    ];
+    protected override void OnInitialized()
+    {
+        Game.ProcessTick += StateHasChanged;
+    }
+
+    private void RankUp()
+    {
+        var canRankUp = Game.Rank.Ranks[Player.Rank + 1].RankRequirement?.Invoke();
+        if (canRankUp!.Value)
+        {
+            Game.Rank.GiveRank(Player.Rank + 1);
+        }
+    }
+}

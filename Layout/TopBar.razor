@@ -1,12 +1,64 @@
-<div class="w-full flex items-center border-b-2 border-solid border-white p-3 flex-col">
-	<p class="text-lg text-white">Magicules: 100</p>
+@using Esoterica.Globals
+<div class="w-full flex border-b-2 border-solid border-white pt-5 pl-5 pr-5 flex-col">
+	<div class="flex">
+		<div class="flex flex-col p-2 border-b-2">
+			<div class="flex flex-row space-x-6 text-sm text-white currencies">
+				<a>Magicules: @Player.Magicules.Format() </a>
+				<a>Essence: 0</a>
+				<a>Shards: 0</a>
+				<a>Ichor: 0</a>
+			</div>
+		</div>
 
-	<div class="p-2 text-xs text-white">	
-		<a href="sigils">Sigils</a>
-		<a href="sigils">Servitors</a>
-		<a href="sigils">Crystals</a>
-		<a href="stats">Stats</a>	
-		<a href="sigils">Settings</a>
+		<div class="w-full flex flex-row items-center m-1">
+			<div class="w-11/12 h-6 flex flex-col justify-center text-white text-center">
+				<span class="absolute w-full left-0 font-sans text-xs">Placeholder</span>
+			</div>
+		</div>
+	</div>
+	<div class="w-full flex flex-row items-center m-1">
+		<div class="w-11/12 h-6 flex flex-col justify-center text-white text-center dark:bg-gray-500">
+			<div class="w=11/12 h-6 flex flex-col justify-center dark:bg-blue-500"
+				style="@progressBarWidth">
+			</div>
+			<span class="absolute w-full left-0 font-sans text-xs">@Game.Rank.CurrentLevelProgress.Format() / @Game.Rank.GetRequiredLevelProgress().Format()
+			</span>
+		</div>
+		<div class="text-end w-1/12 m-2">
+			<div class="text-xs text-gray-800 dark:text-white ">@Game.Rank.Ranks[Player.Rank].RankName </div>
+			<div class="text-xs text-gray-800 dark:text-white ">@Game.Rank.Tier ： @Player.Level </div>
+		</div>
 	</div>
 
+	<div class="text-sm ml-auto text-white border-b-2 space-x-2 navigation p-2">
+		<a href="ranks">Rank</a>
+		<a href="sigils">Sigils</a>
+		<a href="sigils">Crystals</a>
+		<a href="sigils">Evocation</a>
+		@* <a href="stats">Summoning</a> *@
+		@* <a href="sigils">Rituals</a> *@
+		@* <a href="sigils">Invocation</a> *@
+		@* <a href="sigils">Astrolabe</a> *@
+		@* <a href="sigils">Trials</a> *@
+		<a href="sigils">P2w Shop</a>
+		<a href="sigils">Settings</a>
+	</div>
 </div>
+
+@code {
+	protected string progressBarWidth => $"width: {( Game.Rank.CurrentLevelProgress / Game.Rank.GetRequiredLevelProgress()).ToDouble() * 100}%";
+	protected override void OnInitialized()
+	{
+		Game.ProcessTick += StateHasChanged;
+	}
+}
+
+<style>
+	.currencies {
+		max-width: 33%;
+	}
+
+	.navigation {
+		max-width: 33%;
+	}
+</style>
