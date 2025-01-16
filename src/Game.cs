@@ -1,5 +1,6 @@
 using System.Timers;
 using Esoterica.Content;
+using Esoterica.Content.Sigils;
 
 namespace Esoterica.Globals;
 public static class Game

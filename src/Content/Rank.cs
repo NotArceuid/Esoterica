@@ -9,12 +9,8 @@ namespace Esoterica.Content;
 public class Rank : ISavable
 {
 	public BigDouble CurrentLevelProgress { get; set; }
-	// public event Action OnLevelUp;
-
 	public int Tier { get; set; }
 	public long CurrentTierProgress { get; set; }
-	// public event Action<BigDouble> GetRequiredTierProgress;
-	// public event Action OnTierUp;
 	public struct RankType
 	{
 		public string RankName { get; set; }
@@ -41,7 +37,7 @@ public class Rank : ISavable
 
 	public BigDouble GetRequiredLevelProgress()
 	{
-		var requirement = new BigDouble(17.9 * Player.Level) * new BigDouble(1.12).Pow(Player.Level) ;
+		var requirement = (new BigDouble(17.9 * Player.Level) * new BigDouble(1.12).Pow(Player.Level)).Round() ;
 		return requirement;
 	}
 
@@ -66,14 +62,14 @@ public class Rank : ISavable
 			() => true,
 			() => ["none"],
 			() => {},
-			["Lesser Sigil Autocast", "Crystals", "New Rank Bonuses", "New Advancements"]
+			["Lesser Sigil Autocast", "Cauldron", "New Rank Bonuses", "New Advancements"]
 		),
 		new RankType(
 			"Neophyte",
 			() => Player.Magicules >= 100000 && Player.SigilCount[2] >= 1 && Player.Level >= 10,
 			() => [$"Magicules ({Player.Magicules.Format()}/100k)", $"Greater Sigils ({Player.SigilCount[2]}/1) "],
 			() => Game.Rank.RankBonusTracker[0] = 1,
-			[]
+			["Upgrades", "More Rank Bonuses"]
 		),	
 		new RankType(
 			"Zelator",

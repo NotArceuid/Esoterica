@@ -6,6 +6,8 @@ using Esoterica.Globals;
 using Esoterica.Pages;
 using Esoterica.Types;
 
+namespace Esoterica.Content.Sigils;
+
 public class Sigils : ISavable
 {
 	public static BigDouble SigilMultipliers => (Player.SigilCount[0] * .025) + (Player.SigilCount[1] * .45) + (Player.SigilCount[2] * 1.5);
